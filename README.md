@@ -14,5 +14,9 @@ https://github.com/sauravDeveloper2000/Assignment--1/assets/153507758/808666e1-2
 
 ## Tech Stack
 
-#UI:- XML
+**UI:-**  XML
+
+**Programming Language:-** Kotlin
+
+**Software:-** Android Studio
 
