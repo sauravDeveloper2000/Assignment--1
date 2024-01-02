@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 rootProject.name = "Assignment--1"
 include ':app'
 include ':assignment2'
+include ':assignment3'
