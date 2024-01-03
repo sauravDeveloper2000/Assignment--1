@@ -10,7 +10,8 @@ interface UserRepository {
 
     suspend fun deleteExistingUser(user: User)
 
+
     fun getAllUsersFromDb(): kotlinx.coroutines.flow.Flow<List<User>>
 
-    suspend fun getUserById(id: Int): User?
+    suspend fun getUserById(id: Int): User
 }
