@@ -17,12 +17,15 @@ import com.example.assignment4.model_class.user_model_class.User
 import com.example.assignment4.ui.profile_screen.UserUiState
 import com.example.assignment4.ui.profile_screen.UserViewModel
 import com.example.assignment4.ui.theme.Assignment1Theme
+import com.example.assignment4.ui.user_posts.PaginationScreen
+import com.example.assignment4.ui.user_posts.UserPostsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val userViewModel: UserViewModel by viewModels()
+    private val userPostsViewModel: UserPostsViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -32,7 +35,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-
+                    PaginationScreen(
+                        userPostsViewModel = userPostsViewModel
+                    )
                 }
             }
         }
