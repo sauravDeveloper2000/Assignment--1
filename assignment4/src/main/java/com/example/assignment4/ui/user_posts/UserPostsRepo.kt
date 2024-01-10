@@ -13,8 +13,14 @@ class UserPostsRepo @Inject constructor(
 ) {
     fun getUsersPosts(): Flow<PagingData<UserPosts>> =
         Pager(
-            config = PagingConfig(pageSize = 10)
+            config = PagingConfig(pageSize = 40,  prefetchDistance = 20)
         ) {
             PaginationSourceForUserPosts(userPostsApiService = userPostsApiService)
         }.flow
+
+    suspend fun getUserPostById(
+        id: String
+    ): UserPosts{
+        return userPostsApiService.getUserPostByItsId(userPostId = id)
+    }
 }
