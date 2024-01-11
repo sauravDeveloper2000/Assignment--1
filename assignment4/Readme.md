@@ -18,6 +18,12 @@ and Architecture.
 - UI:- JetPack Compose adhere by Material Design3
 
 ## Demo 
+
+
+
+https://github.com/sauravDeveloper2000/Assignment--1/assets/153507758/953fdd59-87b2-4430-98ae-d15a2d4d30e1
+
+
 ## Lessons Learned
 
 So from this Assignment I have learnt how to implement pagination3 library, how to work with 2 APIs parllelly in the project, how make our app UI awesome by utilizing JetPack Compose and followed by Material Design3.
