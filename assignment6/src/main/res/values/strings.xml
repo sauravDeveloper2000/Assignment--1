@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Assignment6</string>
+    <string name="welcome_screen_text">Welcome to Fire 🔥 Task</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="register_screen">RegisterScreen</string>
+    <string name="email_field">Enter Your Email-ID</string>
+    <string name="password_field">Enter Your Password</string>
+    <string name="if_login_failed">Don\'t have an account? Create an New Account </string>
+    <string name="confirm_password">Confirm Password</string>
+</resources>
