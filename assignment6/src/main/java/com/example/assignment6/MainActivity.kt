@@ -16,6 +16,7 @@ import com.example.assignment6.ui.login_screen.LoginScreenViewModel
 import com.example.assignment6.ui.register_screen.RegisterScreenViewModel
 import com.example.assignment6.ui.theme.Assignment1Theme
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,7 +30,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        auth = Firebase.auth
+        auth = com.google.firebase.Firebase.auth
         setContent {
             Assignment1Theme {
                 // A surface container using the 'background' color from the theme

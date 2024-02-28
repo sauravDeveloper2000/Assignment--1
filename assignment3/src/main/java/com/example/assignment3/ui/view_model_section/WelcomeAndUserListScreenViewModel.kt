@@ -30,7 +30,7 @@ class WelcomeAndUserListScreenViewModel @Inject constructor(
      *  3rd we insert each user into DB using forEach() and userRepo's method.
      */
     fun generateAndInsertUsers(number: Int) {
-        if (number == 2){
+        if (number == 5){
             viewModelScope.launch {
                 val users = generateAndReturnUserSequence().take(5).toList()
                 users.forEach(){user ->
@@ -39,14 +39,18 @@ class WelcomeAndUserListScreenViewModel @Inject constructor(
             }
         } else{
             viewModelScope.launch {
-                val user = generateAndReturnUserSequence().take(1)
-                userRepository.updateOrInsertUser(user.single())
+                val user = generateAndReturnUserSequence().take(2).toList()
+                user.forEach { user ->
+                    userRepository.updateOrInsertUser(user)
+                }
             }
         }
     }
 
-
-
+    /**
+     * generateAndReturnUsersSequence() - This function generating an sequence of user with random info
+     * Like random userId, name, emailId and user name.
+     */
     private fun generateAndReturnUserSequence(): Sequence<User> {
         val userSequence = generateSequence {
             User(

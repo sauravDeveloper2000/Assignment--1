@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -20,9 +20,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,14 +29,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.assignment3.database.User
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun UserListScreen(
-    users: State<List<User>>,
-    paddingValues: PaddingValues,
+    users: List<User>,
     generateNewUser: () -> Unit,
-    userDetailScreen: (User) -> Unit,
-    onUpButtonClick: () -> Unit
+    userDetailScreen: (User, Int) -> Unit,
 ) {
     Scaffold(
         floatingActionButton = {
@@ -53,27 +49,24 @@ fun UserListScreen(
                     fontWeight = FontWeight.SemiBold
                 )
             }
-        },
-        topBar = {
-            TopAppBar(
-                title = { /*TODO*/ }
-            )
         }
     ) { innerPadding ->
 
         LazyColumn(
             modifier = Modifier
                 .padding(innerPadding),
-            contentPadding = PaddingValues(15.dp)
+            contentPadding = PaddingValues(10.dp)
 
         ) {
-            items(users.value) { user ->
+            itemsIndexed(
+                items = users
+            ) { index, item ->
                 UserItem(
-                    user = user,
-                    modifier = Modifier
-                        .clickable {
-                            userDetailScreen(user)
-                        }
+                    user = item,
+                    index = index,
+                    modifier = Modifier.clickable {
+                        userDetailScreen(item, index)
+                    }
                 )
                 Spacer(modifier = Modifier.height(10.dp))
             }
@@ -84,6 +77,7 @@ fun UserListScreen(
 @Composable
 fun UserItem(
     user: User,
+    index: Int,
     modifier: Modifier
 ) {
     Card(
@@ -148,7 +142,7 @@ fun UserItem(
                 Text(
                     modifier = Modifier
                         .padding(5.dp),
-                    text = "${user.id}",
+                    text = "$index",
                     style = MaterialTheme.typography.bodySmall,
                     fontWeight = FontWeight.SemiBold
                 )

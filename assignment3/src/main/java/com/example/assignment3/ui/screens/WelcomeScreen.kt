@@ -16,13 +16,11 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun WelcomeScreen(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     nextScreen: () -> Unit
 ) {
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(),
+        modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {

@@ -1,11 +1,8 @@
 package com.example.assignment3
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -13,7 +10,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -55,14 +51,15 @@ fun AppScreen(
         }
     ) { innerPadding ->
         NavHost(
+            modifier = Modifier.padding(innerPadding),
             navController = navyController,
             startDestination = UserAppScreen.WelcomeScreen.name
         ) {
             composable(route = UserAppScreen.WelcomeScreen.name) {
                 WelcomeScreen(
-                    modifier = Modifier.padding(innerPadding),
+                    modifier = Modifier.fillMaxSize(),
                     nextScreen = {
-                        firstViewModel.generateAndInsertUsers(2)
+                        firstViewModel.generateAndInsertUsers(5)
                         navyController.navigate(route = UserAppScreen.UserListScreen.name)
                     }
                 )
@@ -70,16 +67,13 @@ fun AppScreen(
 
             composable(route = UserAppScreen.UserListScreen.name) {
                 UserListScreen(
-                    users = firstViewModel.listOfUsers.collectAsState(initial = emptyList()),
-                    innerPadding,
+                    users = firstViewModel.listOfUsers.collectAsState(initial = emptyList()).value,
                     generateNewUser = {
-                        firstViewModel.generateAndInsertUsers(1)
+                        firstViewModel.generateAndInsertUsers(2)
                     },
-                    userDetailScreen = { user ->
+                    userDetailScreen = { user, index ->
+                        secondViewModel.setListItemIndexProperty(index = index)
                         navyController.navigate(route = UserAppScreen.DetailScreen.name + "?userId=${user.id}")
-                    },
-                    onUpButtonClick = {
-                        navyController.popBackStack()
                     }
                 )
             }
@@ -88,7 +82,7 @@ fun AppScreen(
                 route = UserAppScreen.DetailScreen.name + "?userId={userId}",
                 arguments = listOf(
                     navArgument(
-                        name = "userId"
+                        name = "userId",
                     ) {
                         type = NavType.IntType
                         defaultValue = -1
@@ -99,9 +93,9 @@ fun AppScreen(
                 val id = backStackEntry.arguments?.getInt("userId") ?: return@composable
                 secondViewModel.getUserById(id)?.let {
                     UserDetailScreen(
-                        id = id,
+                        id = secondViewModel.listItemIndex,
                         user = it,
-                        deleteUser = {user ->
+                        deleteUser = { user ->
                             secondViewModel.deleteUser(user)
                             navyController.popBackStack()
                         }
